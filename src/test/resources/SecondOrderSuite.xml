@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">​
+<suite name="First Order Suite">​
+    <test name="Sum and sub">​
+        <classes>​
+            <class name="hw1.DivideTest"/>​
+            <class name="hw1.MultiplicationTest"/>
+        </classes>​
+    </test>​
+</suite>​
