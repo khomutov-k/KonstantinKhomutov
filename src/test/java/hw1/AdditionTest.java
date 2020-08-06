@@ -1,6 +1,7 @@
 package hw1;
 
 import com.epam.tat.module4.Calculator;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -8,7 +9,12 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class AdditionTest {
 
-    Calculator calc = new Calculator();
+    Calculator calc;
+
+    @BeforeMethod
+    public void setUp() {
+        calc = new Calculator();
+    }
 
     @DataProvider(name = "additionDataLong")
     public static Object[][] createLongData() {

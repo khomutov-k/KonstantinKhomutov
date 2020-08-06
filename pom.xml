@@ -9,17 +9,20 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <project.build.source.Encoding>UTF-8</project.build.source.Encoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <testng.version>7.1.0</testng.version>
+        <assertj-core.version>3.16.1</assertj-core.version>
     </properties>
     <dependencies>
+
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.16.1</version>
+            <version>${assertj-core.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.calcs</groupId>
             <artifactId>calculator-1.0</artifactId>
@@ -33,19 +36,25 @@
             <version>${testng.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.141.59</version>
+        </dependency>
     </dependencies>
-
-
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.1</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -55,7 +64,7 @@
                     <configLocation>
                         https://raw.githubusercontent.com/shoggy/epam-ru-pet-ta-2020-notes/master/checkstyle_config.xml
                     </configLocation>
-                    <encoding>UTF-8</encoding>
+                    <encoding>{project.build.sourceEncoding}</encoding>
                     <consoleOutput>true</consoleOutput>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
                     <violationSeverity>warning</violationSeverity>
@@ -78,12 +87,12 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.surefire</groupId>
-                        <artifactId>surefire</artifactId>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
                         <version>2.22.2</version>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>FullSuit</suiteXmlFile>
+                                <suiteXmlFile>./src/test/resources/FullSuite.xml</suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                     </plugin>
@@ -91,16 +100,16 @@
             </build>
         </profile>
         <profile>
-            <id>Add and subtract</id>
+            <id>AddAndSubtract</id>
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.surefire</groupId>
-                        <artifactId>surefire</artifactId>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
                         <version>2.22.2</version>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>FirstOrderSuit</suiteXmlFile>
+                                <suiteXmlFile>./src/test/resources/FirstOrderSuite.xml</suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                     </plugin>
@@ -111,16 +120,16 @@
             </activation>
         </profile>
         <profile>
-            <id>Multiply and divide</id>
+            <id>MultiplyAndDivide</id>
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.surefire</groupId>
-                        <artifactId>surefire</artifactId>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
                         <version>2.22.2</version>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>SecondOrderSuit</suiteXmlFile>
+                                <suiteXmlFile>./src/test/resources/SecondOrderSuite.xml</suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                     </plugin>
