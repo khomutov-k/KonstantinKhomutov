@@ -1,9 +1,0 @@
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="First Order Suite">​
-    <test name="Sum and sub">​
-        <classes>​
-            <class name="hw1.AdditionTest"/>​
-            <class name="hw1.SubtractionTest"/>
-        </classes>​
-    </test>​
-</suite>​

@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeMethod;
 public class TestCommons {
 
     protected WebDriver driver;
-    protected String baseUrl = "https://jdi-testing.github.io/jdi-light/index.html  ";
+    protected String baseUrl = "https://jdi-testing.github.io/jdi-light/index.html";
 
     @BeforeMethod
     public void setUp()  {

@@ -1,7 +1,6 @@
 package hw2.ex2;
 
 import hw2.TestCommons;
-import hw2.page.HomePage;
 import hw2.page.LoginForm;
 import hw2.utils.Helper;
 import org.assertj.core.api.SoftAssertions;
@@ -26,7 +25,6 @@ public class Exercise2 extends TestCommons {
 
         // Step 1. Open test site by URL
         driver.get(baseUrl);
-        HomePage homePage = new HomePage(driver);
 
         //Step 2. Verify Title of the hw2.page
         String actualTitle = driver.getTitle();
@@ -39,7 +37,7 @@ public class Exercise2 extends TestCommons {
         form.login("Roman", "Jdi1234");
 
         //Step 4.Assert User name in the left-top side of screen that user is loggined
-        String actualUsername = homePage.getUserName();
+        String actualUsername = driver.findElement(By.cssSelector("span#user-name")).getText();
         String expectedUsername = "ROMAN IOVLEV";
         softAssert.assertThat(actualUsername).as("Wrong user")
                 .isEqualTo(expectedUsername);
