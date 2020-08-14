@@ -6,6 +6,7 @@
     <test name="SeleniumAutomation">
         <classes>
             <class name="hw4.ex1.Exercise1"></class>
+            <class name="hw4.ex1.FailedTest"></class>
             <class name="hw4.ex2.Exercise2"></class>
         </classes>
     </test>

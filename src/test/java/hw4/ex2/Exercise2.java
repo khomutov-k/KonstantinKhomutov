@@ -42,7 +42,7 @@ public class Exercise2 extends TestCommons {
                 .selectCheckboxes("Wind", "Water")
                 .checkCheckboxes(true, "Wind", "Water")
                 .selectRadio("Selen")
-                .checkRadios("Selens")
+                .checkRadios("Selen")
                 .selectDropdown("Yellow")
                 .checkDropdown("Yellow")
                 .selectCheckboxes("Wind", "Water")
