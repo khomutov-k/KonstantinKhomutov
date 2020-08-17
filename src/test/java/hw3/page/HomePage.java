@@ -35,6 +35,8 @@ public class HomePage {
     @FindBy(css = "ul.nav li.dropdown li:nth-child(8)")
     public WebElement differentElementLink;
 
+
+
     @FindBy(id = "user-name")
     private WebElement username;
     private DifferentElementPage elementPage;
@@ -75,6 +77,18 @@ public class HomePage {
 
     public LoginForm getLoginForm() {
         return new LoginForm(driver);
+    }
+
+    public List<WebElement> getHeaderServiceLinks() {
+        driver.findElement(By.cssSelector("li[index=\"3\"] a")).click();
+        new WebDriverWait(driver, 10)
+                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("ul.sub")));
+        return driver.findElements(By.cssSelector("li[index=\"3\"] > ul li"));
+    }
+
+    public List<WebElement> getLeftSectionServiceLinks() {
+        driver.findElement(By.cssSelector("ul.nav li.dropdown")).click();
+        return driver.findElements(By.cssSelector("ul.nav li.dropdown li"));
     }
 
     public void close() {
