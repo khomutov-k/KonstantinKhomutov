@@ -1,9 +1,9 @@
-package hw4.steps;
+package hw5.steps;
 
-import hw4.page.DifferentElementPage;
-import hw4.page.HomePage;
-import hw4.utils.Helper;
-import hw4.utils.PropertiesHandler;
+import hw5.page.DifferentElementPage;
+import hw5.page.HomePage;
+import hw5.utils.Helper;
+import hw5.utils.PropertiesHandler;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import org.assertj.core.api.SoftAssertions;
@@ -25,7 +25,7 @@ public class DifferentElementSteps {
     public DifferentElementSteps(WebDriver driver) {
         softAssert = new SoftAssertions();
         homePage = new HomePage(driver);
-        elementPage = homePage.getElementPage();
+        elementPage = homePage.getDifferentElementPage();
         props = PropertiesHandler.getProperties();
         this.driver = driver;
     }

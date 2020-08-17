@@ -1,4 +1,4 @@
-package hw4.page;
+package hw5.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -34,6 +34,8 @@ public class HomePage {
     public WebElement footer;
     @FindBy(css = "ul.nav li.dropdown li:nth-child(8)")
     public WebElement differentElementLink;
+    @FindBy (css = ".nav .dropdown-toggle")
+    public WebElement headerServiceDropdown;
 
 
 
@@ -42,18 +44,26 @@ public class HomePage {
     private DifferentElementPage elementPage;
     private WebDriver driver;
 
-    public DifferentElementPage getElementPage() {
-        return elementPage;
-    }
-
     public void openPage() {
         driver.get(baseUrl);
     }
 
     public HomePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        elementPage = new DifferentElementPage(driver);
         this.driver = driver;
+    }
+
+    public DifferentElementPage getDifferentElementPage() {
+        return new DifferentElementPage(driver);
+    }
+
+    public void openDifferentElementPage() {
+        headerServiceDropdown.click();
+        differentElementLink.click();
+    }
+
+    public LoginForm getLoginForm() {
+        return new LoginForm(driver);
     }
 
     public String getUserName() {
@@ -73,10 +83,6 @@ public class HomePage {
     public HomePageFrame switchToFrame(String frameName) {
         driver.switchTo().frame(frameName);
         return new HomePageFrame(driver);
-    }
-
-    public LoginForm getLoginForm() {
-        return new LoginForm(driver);
     }
 
     public List<WebElement> getHeaderServiceLinks() {

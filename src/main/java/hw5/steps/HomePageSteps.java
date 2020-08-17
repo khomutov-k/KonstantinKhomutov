@@ -1,12 +1,12 @@
-package hw4.steps;
+package hw5.steps;
 
-import hw4.model.User;
-import hw4.model.UserManager;
-import hw4.page.HomePage;
-import hw4.page.HomePageFrame;
-import hw4.page.LoginForm;
-import hw4.utils.Helper;
-import hw4.utils.PropertiesHandler;
+import hw5.model.User;
+import hw5.model.UserManager;
+import hw5.page.HomePage;
+import hw5.page.HomePageFrame;
+import hw5.page.LoginForm;
+import hw5.utils.Helper;
+import hw5.utils.PropertiesHandler;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import org.assertj.core.api.SoftAssertions;
@@ -55,7 +55,7 @@ public class HomePageSteps {
     @Description(value = "Perform login")
     public HomePageSteps login() {
         LoginForm form = homePage.getLoginForm();
-        final User defaultUserFromProperties = UserManager.createDefaultUserFromProperties(props);
+        final User defaultUserFromProperties = UserManager.getDefaultUserFromProperties();
         form.login(defaultUserFromProperties);
         return this;
     }

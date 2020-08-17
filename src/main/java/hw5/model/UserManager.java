@@ -1,16 +1,20 @@
-package hw4.model;
+package hw5.model;
+
+import hw5.utils.PropertiesHandler;
 
 import java.util.Properties;
 
 public class UserManager {
 
-    public static User createDefaultUserFromProperties(Properties props) {
+    private static Properties props = PropertiesHandler.getProperties();
+
+    public static User getDefaultUserFromProperties() {
         String username = props.getProperty("user.username");
         String password = props.getProperty("user.password");
         return new User(username,password);
     }
 
-    public static User createBlankUser() {
+    public static User getBlankUser() {
         return new User("","");
     }
 }

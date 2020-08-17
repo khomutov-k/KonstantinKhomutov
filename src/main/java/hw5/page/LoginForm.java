@@ -1,6 +1,6 @@
-package hw4.page;
+package hw5.page;
 
-import hw4.model.User;
+import hw5.model.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -25,6 +25,7 @@ public class LoginForm {
 
     public LoginForm(WebDriver driver) {
         PageFactory.initElements(driver,this);
+
         this.driver = driver;
 
     }
