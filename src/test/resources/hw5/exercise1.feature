@@ -4,7 +4,7 @@ Feature: Different Element Page check
   I want to click interface elements and get text in logs according UI element used.
   Scenario: Check checkboxes elements
     Given I open JDI main page
-    And I login
+    And I login as user Roman Iovlev
     And I open Different Element Page
     When I click 'Water' checkbox on Different Element Page
     And I click 'Wind' checkbox on Different Element Page
@@ -13,14 +13,14 @@ Feature: Different Element Page check
 
   Scenario: Check radio elements
     Given I open JDI main page
-    And I login
+    And I login as user Roman Iovlev
     And I open Different Element Page
     When I click 'Selen' radio on Different Element Page
     Then I should see metal: value changed to 'Selen' in logs bar on the Different Element Page
 
   Scenario: Check dropdown element
     Given I open JDI main page
-    And I login
+    And I login as user Roman Iovlev
     And I open Different Element Page
     When I click 'Yellow' option in dropdown on Different Element Page
     Then I should see Colors: value changed to 'Yellow' in logs bar on the Different Element Page

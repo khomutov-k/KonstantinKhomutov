@@ -12,7 +12,7 @@ import static org.testng.Assert.assertTrue;
 
 public class Helper {
 
-    /** Assert that that every element from List has text, which could be at least one
+    /** Assert that that every element from List has text, which should be at least one
      *  of expected values from the set.
      * Note: It uses testNG Assert class for assertion.
      * @param webElements List of elements that will be validated

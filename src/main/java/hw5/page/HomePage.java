@@ -26,6 +26,8 @@ public class HomePage {
     public List<WebElement> benefitIcons;
     @FindBy(className = "benefit-txt")
     public List<WebElement> benefitTexts;
+    @FindBy(css = ".nav ul li a")
+    public List<WebElement> serviceListItemsLinks;
     @FindBy(css = "h3 a")
     public WebElement subHeaderLink;
     @FindBy(name = "navigation-sidebar")
@@ -36,7 +38,8 @@ public class HomePage {
     public WebElement differentElementLink;
     @FindBy (css = ".nav .dropdown-toggle")
     public WebElement headerServiceDropdown;
-
+    @FindBy (css = ".nav > li > a")
+    public List<WebElement> headerLinks;
 
 
     @FindBy(id = "user-name")
@@ -97,6 +100,23 @@ public class HomePage {
         return driver.findElements(By.cssSelector("ul.nav li.dropdown li"));
     }
 
+    public WebElement findLinkByNameInServiceDropdown(String name) {
+        for (WebElement link : serviceListItemsLinks) {
+           if (link.getText().equalsIgnoreCase(name)) {
+               return link;
+           }
+        }
+        return null;
+    }
+
+    public WebElement findLinkByNameInHeader(String name) {
+        for (WebElement headerLink : headerLinks) {
+            if (headerLink.getText().equalsIgnoreCase(name)) {
+                return headerLink;
+            }
+        }
+        return null;
+    }
     public void close() {
         driver.close();
     }

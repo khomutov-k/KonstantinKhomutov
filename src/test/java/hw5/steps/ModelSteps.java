@@ -15,12 +15,14 @@ public class ModelSteps {
         homePage.openPage();
     }
 
-    @Given("I login")
+    @Given("I login as user Roman Iovlev")
     public void login() {
 
         User defaultUser = UserManager.getDefaultUserFromProperties();
         homePage.getLoginForm().login(defaultUser);
-
+        if (!homePage.getUserName().equalsIgnoreCase("Roman Iovlev")) {
+            throw new RuntimeException("Wrong user was authorized");
+        }
     }
 
     @Given("I open Different Element Page")

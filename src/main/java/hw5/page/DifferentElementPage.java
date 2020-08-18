@@ -35,11 +35,11 @@ public class DifferentElementPage {
     }
 
     public WebElement findInputOfCheckboxByLabel(String label) {
-        return findInputOfElementByLabel(label,checkBoxesLabels);
+        return findInputOfElementByLabel(label, checkBoxesLabels);
     }
 
     public WebElement findInputOfRadioByLabel(String label) {
-        return findInputOfElementByLabel(label,radioLabels);
+        return findInputOfElementByLabel(label, radioLabels);
     }
 
     private WebElement findInputOfElementByLabel(String label, List<WebElement> elements) {
