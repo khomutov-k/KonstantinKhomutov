@@ -1,4 +1,4 @@
-package hw2.utils;
+package hw3.utils;
 
 import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.WebElement;

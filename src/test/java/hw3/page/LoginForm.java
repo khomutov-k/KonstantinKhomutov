@@ -1,5 +1,6 @@
-package hw2.page;
+package hw3.page;
 
+import hw3.model.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,15 +24,17 @@ public class LoginForm {
 
 
     public LoginForm(WebDriver driver) {
-        this.driver = driver;
         PageFactory.initElements(driver,this);
+        this.driver = driver;
+
     }
 
-    public void login(String username, String password) {
-
+    public void login(User user) {
+        final String username = user.getUserName();
+        final String password = user.getPassword();
+        toggle.click();
         new WebDriverWait(driver, 10)
                 .until(ExpectedConditions.presenceOfElementLocated(By.id("login-form")));
-        toggle.click();
         nameInput.sendKeys(username);
         passwordInput.sendKeys(password);
         confirmBtn.click();

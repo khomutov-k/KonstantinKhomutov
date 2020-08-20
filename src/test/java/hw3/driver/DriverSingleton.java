@@ -1,4 +1,4 @@
-package hw2.driver;
+package hw3.driver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
