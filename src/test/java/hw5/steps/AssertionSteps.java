@@ -4,11 +4,13 @@ import hw5.driver.DriverSingleton;
 import hw5.page.DifferentElementPage;
 import hw5.page.UserTablePage;
 import hw5.utils.Helper;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.assertj.core.api.SoftAssertions;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -74,15 +76,6 @@ public class AssertionSteps {
                 .isEqualTo(username);
     }
 
-    @Then("Description text under image in {string} row should be displayed as {string}")
-    public void descriptionTextsUnderImagesShouldCorrespondItAtUsersTable(
-            String row,String description) {
-        String descriptionFromTable = userTablePage.getDescriptionInSpecifiedRow(row).getText();
-        assertThat(descriptionFromTable).as("Description is not correspond ")
-                .isEqualTo(description);
-
-    }
-
     @Then("Checkboxes should be displayed in {string} row at Users Table on User Table Page")
     public void checkboxesShouldBeDisplayedAtUsersTableOnUserTablePage(String row) {
         boolean checkboxIsDisplayed = userTablePage.getCheckboxInSpecifiedRow(row).isDisplayed();
@@ -90,19 +83,40 @@ public class AssertionSteps {
                 .isTrue();
     }
 
-    @Then("Dropdown should have {string} for user {string} at Users Table")
-    public void dropdownShouldHaveOptionForUserRomanAtUsersTable(String optionName, String userName) {
-        boolean optionIsFound = userTablePage.getOptionByNameWithSpecifiedUser(optionName,userName).isDisplayed();
-        assertThat(optionIsFound).as("Option wasn't found")
-                .isTrue();
-    }
-
     @Then("Log row has {string} text in log section")
     public void logRowHasTextInLogSection(String expectedLog) {
         SoftAssertions softAssertions = new SoftAssertions();
         Helper.textOfWebElementsContainsSetText(userTablePage.getLogLines(),
-                new HashSet<String>(Collections.singletonList(expectedLog)),
+                new HashSet<>(Collections.singletonList(expectedLog)),
                 softAssertions);
         softAssertions.assertAll();
+    }
+
+    @And("Description text under image in {string} row should be displayed as {string} with {string}")
+    public void descriptionTextUnderImageInNumberRowShouldBeDisplayedAsDescriptionWithAdditionalDescription(
+        String row, String description, String addition) {
+            String fullDescription;
+            if (addition.isEmpty()) {
+                fullDescription = description;
+            }
+            else {
+                fullDescription = description + "\n" + addition;
+            }
+            String descriptionFromTable = userTablePage.getDescriptionInSpecifiedRow(row).getText();
+            assertThat(descriptionFromTable).as("Description is not correspond ")
+                    .isEqualTo(fullDescription);
+
+        }
+
+    @And("Dropdown should have next options for user {string} at Users Table")
+    public void dropdownShouldHaveNextOptionsForUserRomanAtUsersTable(String username, List<String> options) {
+        boolean optionIsFound = false;
+        for (String optionName : options) {
+             optionIsFound= userTablePage.getOptionByNameWithSpecifiedUser(optionName,username)
+                    .isDisplayed();
+             if (!optionIsFound) break;
+        }
+        assertThat(optionIsFound).as("Some of option wasn't found")
+                .isTrue();
     }
 }
