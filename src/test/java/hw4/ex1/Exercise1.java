@@ -4,6 +4,8 @@ import hw4.TestCommons;
 import hw4.steps.HomePageSteps;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.openqa.selenium.WebDriver;
+import org.testng.ITestContext;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -12,7 +14,8 @@ public class Exercise1 extends TestCommons {
     private HomePageSteps steps;
 
     @BeforeMethod
-    public void setUp() {
+    public void setUp(ITestContext context) {
+        WebDriver driver = (WebDriver) context.getAttribute("driver");
         steps = new HomePageSteps(driver);
     }
 

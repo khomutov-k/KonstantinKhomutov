@@ -10,6 +10,7 @@ import hw4.utils.PropertiesHandler;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import org.assertj.core.api.SoftAssertions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -25,14 +26,13 @@ public class HomePageSteps {
 
     private HomePage homePage;
     private HomePageFrame frame;
-    private Properties props = PropertiesHandler.getProperties();
-    private WebDriver driver;
+    private Properties props;
     private SoftAssertions softAssertions;
 
     public HomePageSteps(WebDriver driver) {
         softAssertions = new SoftAssertions();
         homePage = new HomePage(driver);
-        this.driver = driver;
+        props = PropertiesHandler.getProperties();
     }
 
     @Step
@@ -92,7 +92,7 @@ public class HomePageSteps {
     public HomePageSteps checkTextUnderIcon() {
         SoftAssertions softAssertions = new SoftAssertions();
         Set<String> benefitTextSet = PropertiesHandler.getPropertySet(props, "benefitText");
-        Helper.textOfWebElementsContainsSetText(homePage.benefitTexts,
+        Helper.compareWebElementsWithSet(homePage.benefitTexts,
                 benefitTextSet, softAssertions);
         softAssertions.assertAll();
         return this;
@@ -171,7 +171,11 @@ public class HomePageSteps {
     public HomePageSteps checkHeaderServiceDropdown() {
         List<WebElement> serviceLinks = homePage.getHeaderServiceLinks();
         Set<String> expectedLinks = PropertiesHandler.getPropertySet(props,"headerServiceLink");
-        Helper.compareWebElementsWithSet(serviceLinks, expectedLinks, softAssertions);
+        Set<String> expectedDropdownLinks = expectedLinks.stream()
+                .map(String::toUpperCase)
+                .collect(Collectors.toSet());
+        Helper.compareWebElementsWithSet(serviceLinks, expectedDropdownLinks, softAssertions);
+        homePage.headerServiceDropdown.findElement(By.tagName("a")).click();
         return this;
     }
     
@@ -181,11 +185,10 @@ public class HomePageSteps {
     public HomePageSteps checkLeftSectionServiceDropdown() {
         Set<String> expectedLinks = PropertiesHandler.getPropertySet(props,"headerServiceLink");
         List<WebElement> serviceDropdownLinks = homePage.getLeftSectionServiceLinks();
-        Set<String> expectedDropdownLinks = expectedLinks.stream()
-                .map(String::toUpperCase)
-                .collect(Collectors.toSet());
+
         Helper.compareWebElementsWithSet(serviceDropdownLinks,
-                expectedDropdownLinks, softAssertions);
+                expectedLinks, softAssertions);
+        homePage.leftServiceDropdown.click();
         return this;
     }
 

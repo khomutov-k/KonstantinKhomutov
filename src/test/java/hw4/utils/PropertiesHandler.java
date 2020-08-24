@@ -38,7 +38,7 @@ public class PropertiesHandler {
     }
 
     public static List<String> getPropertyList(Properties properties, String name) {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         for (Map.Entry<Object, Object> entry : properties.entrySet()) {
             if (((String)entry.getKey()).matches("^" + Pattern.quote(name) + "\\.\\d+$")) {
                 result.add((String) entry.getValue());

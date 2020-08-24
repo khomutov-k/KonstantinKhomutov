@@ -3,20 +3,21 @@ package hw4.listeners;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
-
-import static hw4.driver.DriverSingleton.getDriver;
 
 
 public class AllureAttachmentListener extends TestListenerAdapter {
 
-    @Attachment(value = "Attachment: {0}", type = "image/png")
-    public byte[] makeScreenShot() {
+    @Attachment(value = "Fail attachment", type = "image/png")
+    public byte[] makeScreenShot(ITestContext context) {
         byte[] array = {1};
+        WebDriver driver = (WebDriver) context.getAttribute("driver");
         try {
-            return ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.BYTES);
+            return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
         } catch (WebDriverException ex) {
             ex.printStackTrace();
         }
@@ -25,7 +26,8 @@ public class AllureAttachmentListener extends TestListenerAdapter {
 
     @Override
     public void onTestFailure(ITestResult tr) {
-        makeScreenShot();
+        super.onTestFailure(tr);
+        makeScreenShot(tr.getTestContext());
     }
 
 }

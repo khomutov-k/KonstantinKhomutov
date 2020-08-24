@@ -3,14 +3,13 @@ package hw4.steps;
 import hw4.page.DifferentElementPage;
 import hw4.page.HomePage;
 import hw4.utils.Helper;
-import hw4.utils.PropertiesHandler;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.WebDriver;
 
 import java.util.HashSet;
-import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 public class DifferentElementSteps {
@@ -18,21 +17,20 @@ public class DifferentElementSteps {
     HomePage homePage;
     DifferentElementPage elementPage;
     SoftAssertions softAssert;
-    Properties props;
-    WebDriver driver;
+    ResourceBundle props;
 
 
     public DifferentElementSteps(WebDriver driver) {
         softAssert = new SoftAssertions();
         homePage = new HomePage(driver);
         elementPage = homePage.getElementPage();
-        props = PropertiesHandler.getProperties();
-        this.driver = driver;
+        props = ResourceBundle.getBundle("testdataHomePage");
     }
 
     @Step
     @Description(value = "Open through the header menu Service -> Different Elements Page")
     public DifferentElementSteps openDifferentElementPageTest() {
+        homePage.headerServiceDropdown.click();
         homePage.differentElementLink.click();
         return this;
     }
@@ -143,6 +141,7 @@ public class DifferentElementSteps {
         }
         Helper.textOfWebElementsContainsSetText(elementPage.getLogsLine(),
                 expectedLogMessages, softAssert);
+
         return this;
     }
 
