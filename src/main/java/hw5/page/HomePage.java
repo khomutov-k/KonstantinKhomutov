@@ -4,13 +4,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-public class HomePage {
+public class HomePage extends BasePage {
 
     private String baseUrl = "https://jdi-testing.github.io/jdi-light/index.html";
 
@@ -36,9 +35,9 @@ public class HomePage {
     public WebElement footer;
     @FindBy(css = "ul.nav li.dropdown li:nth-child(8)")
     public WebElement differentElementLink;
-    @FindBy (css = ".nav .dropdown-toggle")
+    @FindBy(css = ".nav .dropdown-toggle")
     public WebElement headerServiceDropdown;
-    @FindBy (css = ".nav > li > a")
+    @FindBy(css = ".nav > li > a")
     public List<WebElement> headerLinks;
 
 
@@ -52,8 +51,7 @@ public class HomePage {
     }
 
     public HomePage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
+        super(driver);
     }
 
     public DifferentElementPage getDifferentElementPage() {
@@ -71,10 +69,6 @@ public class HomePage {
 
     public String getUserName() {
         return username.getText();
-    }
-
-    public String getTitle() {
-        return driver.getTitle();
     }
 
     public void waitForPageLoad() {
@@ -102,9 +96,9 @@ public class HomePage {
 
     public WebElement findLinkByNameInServiceDropdown(String name) {
         for (WebElement link : serviceListItemsLinks) {
-           if (link.getText().equalsIgnoreCase(name)) {
-               return link;
-           }
+            if (link.getText().equalsIgnoreCase(name)) {
+                return link;
+            }
         }
         return null;
     }
@@ -117,6 +111,7 @@ public class HomePage {
         }
         return null;
     }
+
     public void close() {
         driver.close();
     }

@@ -4,11 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class DifferentElementPage {
+public class DifferentElementPage extends BasePage {
 
     @FindBy(css = "input[type=\"checkbox\"]")
     public List<WebElement> checkBoxes;
@@ -27,11 +26,9 @@ public class DifferentElementPage {
     @FindBy(name = "navigation-sidebar")
     public WebElement navigationSidebar;
 
-    WebDriver driver;
 
     public DifferentElementPage(WebDriver driver) {
-        PageFactory.initElements(driver,this);
-        this.driver = driver;
+        super(driver);
     }
 
     public WebElement findInputOfCheckboxByLabel(String label) {
@@ -57,7 +54,7 @@ public class DifferentElementPage {
 
     public WebElement getOptionByName(String name) {
         List<WebElement> options = dropdown.findElements(By.tagName("Option"));
-        for (WebElement option:options) {
+        for (WebElement option : options) {
             if (name.equals(option.getText())) {
                 return option;
             }

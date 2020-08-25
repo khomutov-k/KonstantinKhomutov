@@ -3,9 +3,8 @@ package hw5.page;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class HomePageFrame {
+public class HomePageFrame extends BasePage {
 
     WebDriver driver;
 
@@ -13,8 +12,7 @@ public class HomePageFrame {
     public WebElement logo;
 
     public HomePageFrame(WebDriver driver) {
-        PageFactory.initElements(driver,this);
-        this.driver = driver;
+        super(driver);
     }
 
     public void switchBack() {

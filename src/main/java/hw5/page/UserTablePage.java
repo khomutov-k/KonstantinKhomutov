@@ -4,11 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class UserTablePage {
+public class UserTablePage extends BasePage {
 
     @FindBy(css = "#user-table tr")
     private List<WebElement> tableRows;
@@ -19,20 +18,15 @@ public class UserTablePage {
     private By usernameBy = By.tagName("a");
     private By descriptionBy = By.cssSelector(".user-descr span");
     private By checkboxBy = By.cssSelector("input");
-    private WebDriver driver;
 
     public UserTablePage(WebDriver driver) {
-        PageFactory.initElements(driver,this);
-        this.driver = driver;
-    }
-
-    public String getTitle() {
-        return driver.getTitle();
+        super(driver);
     }
 
     public List<WebElement> getLogLines() {
         return logSidebar.findElements(By.tagName("li"));
     }
+
     public WebElement getDropdownInSpecifiedRow(String number) {
         WebElement row = findRowInTableByNumber(number);
         return row.findElement(selectBy);

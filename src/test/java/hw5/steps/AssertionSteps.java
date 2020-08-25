@@ -4,7 +4,6 @@ import hw5.driver.DriverSingleton;
 import hw5.page.DifferentElementPage;
 import hw5.page.UserTablePage;
 import hw5.utils.Helper;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.assertj.core.api.SoftAssertions;
 
@@ -27,7 +26,7 @@ public class AssertionSteps {
         SoftAssertions softAssert = new SoftAssertions();
         Set<String> expectedLogMessage = new HashSet<>();
         expectedLogMessage.add(
-                    label  + ": condition changed to " + state);
+                label + ": condition changed to " + state);
         Helper.textOfWebElementsContainsSetText(elementPage.getLogsLine(),
                 expectedLogMessage, softAssert);
         softAssert.assertAll();
@@ -64,7 +63,7 @@ public class AssertionSteps {
     @Then("Dropdown should be displayed in {string} row at Users Table")
     public void dropdownShouldBeDisplayedInNumberAtUsersTable(String rowNumber) {
         final boolean dropdownIsDisplayed = userTablePage.getDropdownInSpecifiedRow(rowNumber).isDisplayed();
-        assertThat(dropdownIsDisplayed).as("Can not find dropdown in the row number:" +rowNumber)
+        assertThat(dropdownIsDisplayed).as("Can not find dropdown in the row number:" + rowNumber)
                 .isTrue();
     }
 
@@ -92,29 +91,28 @@ public class AssertionSteps {
         softAssertions.assertAll();
     }
 
-    @And("Description text under image in {string} row should be displayed as {string} with {string}")
+    @Then("Description text under image in {string} row should be displayed as {string} with {string}")
     public void descriptionTextUnderImageInNumberRowShouldBeDisplayedAsDescriptionWithAdditionalDescription(
-        String row, String description, String addition) {
-            String fullDescription;
-            if (addition.isEmpty()) {
-                fullDescription = description;
-            }
-            else {
-                fullDescription = description + "\n" + addition;
-            }
-            String descriptionFromTable = userTablePage.getDescriptionInSpecifiedRow(row).getText();
-            assertThat(descriptionFromTable).as("Description is not correspond ")
-                    .isEqualTo(fullDescription);
-
+            String row, String description, String addition) {
+        String fullDescription;
+        if (addition.isEmpty()) {
+            fullDescription = description;
+        } else {
+            fullDescription = description + "\n" + addition;
         }
+        String descriptionFromTable = userTablePage.getDescriptionInSpecifiedRow(row).getText();
+        assertThat(descriptionFromTable).as("Description is not correspond ")
+                .isEqualTo(fullDescription);
 
-    @And("Dropdown should have next options for user {string} at Users Table")
+    }
+
+    @Then("Dropdown should have next options for user {string} at Users Table")
     public void dropdownShouldHaveNextOptionsForUserRomanAtUsersTable(String username, List<String> options) {
         boolean optionIsFound = false;
         for (String optionName : options) {
-             optionIsFound= userTablePage.getOptionByNameWithSpecifiedUser(optionName,username)
+            optionIsFound = userTablePage.getOptionByNameWithSpecifiedUser(optionName, username)
                     .isDisplayed();
-             if (!optionIsFound) break;
+            if (!optionIsFound) break;
         }
         assertThat(optionIsFound).as("Some of option wasn't found")
                 .isTrue();
