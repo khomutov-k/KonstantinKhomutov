@@ -1,4 +1,4 @@
-package hw3.model;
+package hw4.model;
 
 public class User {
 

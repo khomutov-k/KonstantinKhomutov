@@ -1,4 +1,4 @@
-package hw3.page;
+package hw4.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DifferentElementPage {
@@ -63,5 +64,13 @@ public class DifferentElementPage {
             }
         }
         return null;
+    }
+
+    public List<String> extractStrings(List<WebElement> elements) {
+        List<String> textOfElements = new ArrayList<>();
+        for (WebElement element : elements) {
+            textOfElements.add(element.getText());
+        }
+        return textOfElements;
     }
 }

@@ -1,4 +1,4 @@
-package hw3.utils;
+package hw4.utils;
 
 import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.WebElement;
@@ -7,6 +7,7 @@ import org.testng.Assert;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertTrue;
 
@@ -40,13 +41,14 @@ public class Helper {
                                                  Set<String> expectedSet,
                                                  SoftAssertions softAssert) {
         if (webElements.isEmpty()) {
-            softAssert.fail("No elements was found");
-        }
-        for (WebElement element : webElements) {
-            String text = element.getText();
-            softAssert.assertThat(expectedSet.contains(text))
-                    .as(text + " wasn't found in expectedSet")
-                    .isTrue();
+            softAssert.fail("No element was found");
+        } else {
+            List<String> elementsText = webElements.stream()
+                    .map(WebElement::getText)
+                    .collect(Collectors.toList());
+
+            softAssert.assertThat(elementsText)
+                    .containsExactlyInAnyOrderElementsOf(expectedSet);
         }
     }
 
@@ -64,7 +66,13 @@ public class Helper {
         if (webElements.isEmpty()) {
             softAssert.fail("No elements was found");
         }
-        expectedSet.forEach(findExpectedTextThroughElements(webElements, softAssert));
+        List<String> logStrings = webElements
+                .stream()
+                .map((element -> element.getText().substring(9)))
+                .collect(Collectors.toList());
+
+        softAssert.assertThat(logStrings)
+                .containsAnyElementsOf(expectedSet);
     }
 
     /**

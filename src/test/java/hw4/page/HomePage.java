@@ -1,4 +1,4 @@
-package hw3.page;
+package hw4.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -32,6 +32,10 @@ public class HomePage {
     public WebElement navigationSidebar;
     @FindBy(tagName = "footer")
     public WebElement footer;
+    @FindBy(css = ".nav li.dropdown")
+    public WebElement headerServiceDropdown;
+    @FindBy(css = "li[index=\"3\"] a")
+    public WebElement leftServiceDropdown;
     @FindBy(css = "ul.nav li.dropdown li:nth-child(8)")
     public WebElement differentElementLink;
 
@@ -79,16 +83,19 @@ public class HomePage {
         return new LoginForm(driver);
     }
 
-    public List<WebElement> getHeaderServiceLinks() {
-        driver.findElement(By.cssSelector("li[index=\"3\"] a")).click();
+    public List<WebElement> getLeftSectionServiceLinks() {
+        leftServiceDropdown.click();
         new WebDriverWait(driver, 10)
                 .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("ul.sub")));
-        return driver.findElements(By.cssSelector("li[index=\"3\"] > ul li"));
+        final List<WebElement> elements = driver.findElements(By
+                .cssSelector("li[index=\"3\"] > ul li"));
+        return elements;
     }
 
-    public List<WebElement> getLeftSectionServiceLinks() {
-        driver.findElement(By.cssSelector("ul.nav li.dropdown")).click();
-        return driver.findElements(By.cssSelector("ul.nav li.dropdown li"));
+    public List<WebElement> getHeaderServiceLinks() {
+        headerServiceDropdown.findElement(By.tagName("a")).click();
+        List<WebElement> listItems = headerServiceDropdown.findElements(By.cssSelector("li"));
+        return listItems;
     }
 
     public void close() {
