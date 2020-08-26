@@ -19,8 +19,27 @@
         <testng.version>7.3.0</testng.version>
         <slf4g-simple.version>1.7.30</slf4g-simple.version>
         <maven-surefire-plugin.version>2.20.1</maven-surefire-plugin.version>
+        <cucumber.version>5.7.0</cucumber.version>
     </properties>
     <dependencies>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-cucumber5-jvm</artifactId>
+            <version>${allure.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.assertj</groupId>
@@ -60,6 +79,12 @@
             <version>3.3.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>3.3.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -93,29 +118,6 @@
                 </dependencies>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.1</version>
-                <configuration>
-                    <configLocation>
-                        https://raw.githubusercontent.com/shoggy/epam-ru-pet-ta-2020-notes/master/checkstyle_config.xml
-                    </configLocation>
-                    <encoding>{project.build.sourceEncoding}</encoding>
-                    <consoleOutput>true</consoleOutput>
-                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                    <violationSeverity>warning</violationSeverity>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>validate</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>2.10.0</version>
@@ -137,9 +139,9 @@
     </reporting>
     <profiles>
         <profile>
-            <id>Hw4</id>
+            <id>Hw5</id>
             <properties>
-                <suiteXmlNames>hw4Suite.xml</suiteXmlNames>
+                <suiteXmlNames>hw5Suite.xml</suiteXmlNames>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>

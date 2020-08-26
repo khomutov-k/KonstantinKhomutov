@@ -1,15 +1,14 @@
-package hw4.page;
+package hw5.page;
 
-import hw4.model.User;
+import hw5.model.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginForm {
+public class LoginForm extends BasePage {
 
     WebDriver driver;
 
@@ -24,9 +23,7 @@ public class LoginForm {
 
 
     public LoginForm(WebDriver driver) {
-        PageFactory.initElements(driver,this);
-        this.driver = driver;
-
+        super(driver);
     }
 
     public void login(User user) {

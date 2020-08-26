@@ -1,16 +1,15 @@
-package hw4.page;
+package hw5.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-public class HomePage {
+public class HomePage extends BasePage {
 
     private String baseUrl = "https://jdi-testing.github.io/jdi-light/index.html";
 
@@ -26,19 +25,20 @@ public class HomePage {
     public List<WebElement> benefitIcons;
     @FindBy(className = "benefit-txt")
     public List<WebElement> benefitTexts;
+    @FindBy(css = ".nav ul li a")
+    public List<WebElement> serviceListItemsLinks;
     @FindBy(css = "h3 a")
     public WebElement subHeaderLink;
     @FindBy(name = "navigation-sidebar")
     public WebElement navigationSidebar;
     @FindBy(tagName = "footer")
     public WebElement footer;
-    @FindBy(css = ".nav li.dropdown")
-    public WebElement headerServiceDropdown;
-    @FindBy(css = "li[index=\"3\"] a")
-    public WebElement leftServiceDropdown;
     @FindBy(css = "ul.nav li.dropdown li:nth-child(8)")
     public WebElement differentElementLink;
-
+    @FindBy(css = ".nav .dropdown-toggle")
+    public WebElement headerServiceDropdown;
+    @FindBy(css = ".nav > li > a")
+    public List<WebElement> headerLinks;
 
 
     @FindBy(id = "user-name")
@@ -46,26 +46,29 @@ public class HomePage {
     private DifferentElementPage elementPage;
     private WebDriver driver;
 
-    public DifferentElementPage getElementPage() {
-        return elementPage;
-    }
-
     public void openPage() {
         driver.get(baseUrl);
     }
 
     public HomePage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        elementPage = new DifferentElementPage(driver);
-        this.driver = driver;
+        super(driver);
+    }
+
+    public DifferentElementPage getDifferentElementPage() {
+        return new DifferentElementPage(driver);
+    }
+
+    public void openDifferentElementPage() {
+        headerServiceDropdown.click();
+        differentElementLink.click();
+    }
+
+    public LoginForm getLoginForm() {
+        return new LoginForm(driver);
     }
 
     public String getUserName() {
         return username.getText();
-    }
-
-    public String getTitle() {
-        return driver.getTitle();
     }
 
     public void waitForPageLoad() {
@@ -79,23 +82,34 @@ public class HomePage {
         return new HomePageFrame(driver);
     }
 
-    public LoginForm getLoginForm() {
-        return new LoginForm(driver);
+    public List<WebElement> getHeaderServiceLinks() {
+        driver.findElement(By.cssSelector("li[index=\"3\"] a")).click();
+        new WebDriverWait(driver, 10)
+                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("ul.sub")));
+        return driver.findElements(By.cssSelector("li[index=\"3\"] > ul li"));
     }
 
     public List<WebElement> getLeftSectionServiceLinks() {
-        leftServiceDropdown.click();
-        new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("ul.sub")));
-        final List<WebElement> elements = driver.findElements(By
-                .cssSelector("li[index=\"3\"] > ul li"));
-        return elements;
+        driver.findElement(By.cssSelector("ul.nav li.dropdown")).click();
+        return driver.findElements(By.cssSelector("ul.nav li.dropdown li"));
     }
 
-    public List<WebElement> getHeaderServiceLinks() {
-        headerServiceDropdown.findElement(By.tagName("a")).click();
-        List<WebElement> listItems = headerServiceDropdown.findElements(By.cssSelector("li"));
-        return listItems;
+    public WebElement findLinkByNameInServiceDropdown(String name) {
+        for (WebElement link : serviceListItemsLinks) {
+            if (link.getText().equalsIgnoreCase(name)) {
+                return link;
+            }
+        }
+        return null;
+    }
+
+    public WebElement findLinkByNameInHeader(String name) {
+        for (WebElement headerLink : headerLinks) {
+            if (headerLink.getText().equalsIgnoreCase(name)) {
+                return headerLink;
+            }
+        }
+        return null;
     }
 
     public void close() {
