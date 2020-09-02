@@ -1,3 +1,5 @@
 /target/
 /EpamTestAutomation.iml
-/.idea/
+.idea/
+.allure/
+allure-results/

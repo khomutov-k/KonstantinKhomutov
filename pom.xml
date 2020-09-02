@@ -19,6 +19,12 @@
     <dependencies>
 
         <dependency>
+            <groupId>com.epam.jdi</groupId>
+            <artifactId>jdi-light-html</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>${assertj-core.version}</version>
@@ -65,44 +71,15 @@
                 <version>2.22.1</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile> ${project.build.testOutputDirectory}/${suiteXmlNames}</suiteXmlFile>
+                        <suiteXmlFile> ${project.build.testOutputDirectory}/</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.1</version>
-                <configuration>
-                    <configLocation>
-                        https://raw.githubusercontent.com/shoggy/epam-ru-pet-ta-2020-notes/master/checkstyle_config.xml
-                    </configLocation>
-                    <encoding>{project.build.sourceEncoding}</encoding>
-                    <consoleOutput>true</consoleOutput>
-                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                    <violationSeverity>warning</violationSeverity>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>validate</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
     <profiles>
         <profile>
-            <id>Hw3</id>
-            <properties>
-                <suiteXmlNames>hw3Suite.xml</suiteXmlNames>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+
         </profile>
     </profiles>
 </project>
