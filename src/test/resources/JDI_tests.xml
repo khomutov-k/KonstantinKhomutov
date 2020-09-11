@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Jdi">
+    <test name="JDIAutomation">
+        <parameter name="filePath" value="src/test/resources/JDI_ex8_metalsColorsDataSet.json"></parameter>
+      <packages>
+          <package name="hw6"></package>
+      </packages>
+    </test>
+</suite>

@@ -44,41 +44,49 @@ public class MetalsAndColorsPage extends WebPage {
         MetalAndColorForm.submitBtn.click();
     }
 
-   public void assertResult(MetalAndColor metalAndColor) {
-       for (UIElement resultString : resultStrings) {
-           String text = resultString.getText();
-           String[] result = text.split(":",2);
+   public void assertResult(MetalAndColor metalAndColor) throws Exception {
+        if (resultStrings == null) {
+            throw new Exception("No logs was found");
+        }else {
+            for (UIElement resultString : resultStrings) {
+                String text = resultString.getText();
+                String[] result = text.split(":",2);
 
-           String key = result[0].trim();
-           String value = result[1].trim();
-           switch (key){
-               case ("Summary") : {
-                   int sum = metalAndColor.getSummary().stream()
-                           .mapToInt(Integer::intValue).sum();
-                   assertThat(value).isEqualTo(String.valueOf(sum));
-                   break;
-               }
-               case ("Elements") : {
-                   assertEnumListContainsExpectedValue(metalAndColor.getElements(), value);
-                   break;
-               }
-               case ("Color") : {
-                   String expectedColor = metalAndColor.getColors().toString();
-                    assertThat(value).isEqualTo(expectedColor);
-                    break;
-               }
-               case ("Metal") : {
-                   String expectedMetal = metalAndColor.getMetals().toString();
-                   assertThat(value).isEqualTo(expectedMetal);
-                   break;
-               }
-               case ("Vegetables") : {
-                   assertEnumListContainsExpectedValue(metalAndColor.getVegetables(), value);
-                   break;
-               }
-           }
-       }
+                String key = result[0].trim();
+                String value = result[1].trim();
+                switchOptionByKey(metalAndColor, key, value);
+            }
+        }
    }
+
+    private void switchOptionByKey(MetalAndColor metalAndColor, String key, String value) {
+        switch (key){
+            case ("Summary") : {
+                int sum = metalAndColor.getSummary().stream()
+                        .mapToInt(Integer::intValue).sum();
+                assertThat(value).isEqualTo(String.valueOf(sum));
+                break;
+            }
+            case ("Elements") : {
+                assertEnumListContainsExpectedValue(metalAndColor.getElements(), value);
+                break;
+            }
+            case ("Color") : {
+                String expectedColor = metalAndColor.getColors().toString();
+                assertThat(value).isEqualTo(expectedColor);
+                break;
+            }
+            case ("Metal") : {
+                String expectedMetal = metalAndColor.getMetals().toString();
+                assertThat(value).isEqualTo(expectedMetal);
+                break;
+            }
+            case ("Vegetables") : {
+                assertEnumListContainsExpectedValue(metalAndColor.getVegetables(), value);
+                break;
+            }
+        }
+    }
 
     private void assertEnumListContainsExpectedValue(List<?> enumList, String value) {
         Set<String> expectedValues = enumList.stream()
